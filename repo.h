@@ -24,12 +24,11 @@ int remove_it(Repo*, Item*);
  * modifica itemul trimis.
  * returneaza 1 daca s-a modificat
  *          0 dacă nu există
- *          -1 eroare de validare
  */
 int modify(Repo*, Item*);
 /*
  * caută itemul în repo
- * returnează itemul sau NULL dacă el nu există
+ * returnează itemul cu instanta corecta sau NULL dacă el nu există
  */
 Item* find(Repo*, Item*);
 

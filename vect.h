@@ -27,6 +27,7 @@ void add_to_vect(Vect*,Item*);
 void remove_from_vect(Vect*, Item*);
 /*
  * căutare în vector
+ * returnează instanța corectă sau NULL dacă nu există
  */
 Item* find_in_vect(Vect*, Item*);
 

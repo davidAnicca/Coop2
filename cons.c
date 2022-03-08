@@ -11,6 +11,7 @@ void menu(){
     printf("\n\n1. adauga\n");
     printf("2. vezi lista\n");
     printf("3. sterge\n");
+    printf("4. modificare\n");
 
     printf("0. iesire\n");
 }
@@ -91,6 +92,74 @@ void del_c(Console* console){
     }
 }
 
+void mod_c(Console* console){
+    printf("1. Modifica pret || 2. Modifica suprafata || 3. Modifica tipul\n>>>");
+    char buffer[10];
+    scanf("%s", buffer);
+    int opt = str_to_int(buffer);
+    if(opt < 1 || opt > 3){
+        printf("optiune invalida\n");
+        return;
+    }
+    if(opt == 1)mod_price_c(console);
+    if(opt == 2)mod_surface_c(console);
+    if(opt == 3)mod_tip_c(console);
+}
+
+void mod_price_c(Console* console){
+    printf("<<<MODIFICARE PRET>>>\n");
+    printf("adresa>>");
+    char adr[10];
+    scanf("%s", adr);
+    printf("pret>>");
+    char buffer[10];
+    scanf("%s", buffer);
+    int pret = str_to_int(buffer);
+    if(pret == -1){
+        printf("<<trebuie introdus un numar\n");
+        return;
+    }
+    if(srv_mod_price(console->srv, adr, (float)pret)){
+        printf("<<s-a modificat cu succes\n");
+    }else{
+        printf("<<adresa nu a putut fi gasita\n");
+    }
+}
+
+void mod_surface_c(Console* console){
+    printf("<<<MODIFICARE SUPRAFATA>>>\n");
+    printf("adresa>>");
+    char adr[10];
+    scanf("%s", adr);
+    printf("suprafata>>");
+    char buffer[10];
+    scanf("%s", buffer);
+    int surface = str_to_int(buffer);
+    if(surface == -1){
+        printf("<<trebuie introdus un numar\n");
+        return;
+    }
+    if(srv_mod_surface(console->srv, adr, surface)){
+        printf("<<s-a modificat cu succes\n");
+    }else{
+        printf("<<adresa nu a putut fi gasita\n");
+    }
+}
+
+void mod_tip_c(Console* console){
+    printf("<<<MODIFICARE TIP>>>\n");
+    printf("adresa>>");
+    char adr[10];
+    scanf("%s", adr);
+    printf("tip>>");
+    char tip[11];
+    scanf("%s", tip);
+    int rez = srv_mod_tip(console->srv, adr, tip);
+    if(rez == -1)printf("<<tip invalid\n");
+    if(rez == 1)printf("<<modificat cu succes\n");
+    if(rez == 0)printf("<<adresa nu a putut fi gasita\n");
+}
+
 Console* run(){
     Console* cons = (Console*)malloc(sizeof(Console));
     cons->srv = create_service();
@@ -116,6 +185,9 @@ Console* run(){
                 break;
             case 3:
                 del_c(cons);
+                break;
+            case 4:
+                mod_c(cons);
                 break;
             default:
                 printf("<<comanda invalida\n");

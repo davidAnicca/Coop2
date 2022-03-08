@@ -27,6 +27,18 @@ int remove_it(Repo* repo, Item* item){
     return 1;
 }
 
+int modify(Repo* repo, Item* item){
+    Item* found = find_in_vect(repo->vect, item);
+    if(found == NULL)
+        return 0;
+    *found = *item;
+    return 1;
+}
+
+Item* find(Repo* repo, Item* item){
+    return find_in_vect(repo->vect, item);
+}
+
 void destroy_repo(Repo* repo){
     free(repo->vect);
     free(repo);

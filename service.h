@@ -36,6 +36,25 @@ int type_val(char[]);///validator de tip
  * sterge un item pe baza adresei sale
  */
 int srv_del(Service*, char[]);
+/*
+ * modifica tipul (service, adresa, tip_nou)
+ * returneaza 1 daca s-a modificat
+ * 0 dacă nu exista
+ * -1 tip cresit
+ */
+int srv_mod_tip(Service*, char[], char[]);
+/*
+ * modifica suprafata (service, adresa, suprafata_noua)
+ * returneaza 1 daca s-a modificat
+ * 0 altfel (nu exista)
+ */
+int srv_mod_surface(Service*, char[], int);
+/*
+ * modifica pretul (service, adresa, pret-nou)
+ * returneaza 1 dacă s-a modificat
+ * 0 altfel (nu exista)
+ */
+int srv_mod_price(Service*, char[], float);
 
 
 #endif //LAB2_4_REINCERCARE_SERVICE_H

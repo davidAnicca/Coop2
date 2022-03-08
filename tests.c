@@ -41,7 +41,16 @@ void del_item_repo_test(){
     destroy_repo(repo);
 }
 void mod_item_repo_test(){
-
+    Repo* repo = create_repo();
+    Item* item = create_item("casa", 12, "adr", 0);
+    Item* alt = create_item("apartament", 120, "adr", 10);
+    assert(modify(repo, alt)==0);
+    add(repo, item);
+    assert(modify(repo, alt)==1);
+    assert(repo->vect->items[0]->price == 10);
+    assert(repo->vect->items[0]->surface == 120);
+    assert(str_equal(repo->vect->items[0]->tip, "apartament"));
+    destroy_repo(repo);
 }
 
 void add_it_srv_test(){
@@ -62,7 +71,21 @@ void del_it_srv_test(){
     destroy_service(srv);
 }
 void mod_it_srv_test(){
+    Service* srv = create_service();
+    Item* item = create_item("casa", 12, "adr", 0);
+    assert(srv_mod_price(srv, "adr", 0)==0);  //nu exista
+    assert(srv_mod_surface(srv, "adr", 0)==0); //nu exista
+    assert(srv_mod_tip(srv, "adr", "apartament")==0);  //nu exista
+    add(srv->repo, item);
+    assert(srv_mod_price(srv, "adr", 0)==1);  //ok
+    assert(srv->repo->vect->items[0]->price == 0);
+    assert(srv_mod_surface(srv, "adr", 0)==1); //ok
+    assert(srv->repo->vect->items[0]->surface == 0);
+    assert(srv_mod_tip(srv, "adr", "apartament")==1); //ok
+    assert(str_equal(srv->repo->vect->items[0]->tip, "apartament"));
+    assert(srv_mod_tip(srv, "adr", "ca")==-1); ///tip invalid
 
+    destroy_service(srv);
 }
 
 void run_all_tests(){

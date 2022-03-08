@@ -41,6 +41,22 @@ void add_c(Console*);
 /*
  * stergere item
  */
-void del_c(Console *);
+void del_c(Console*);
+/*
+ * submeniu modifica
+ */
+void mod_c(Console*);
+/*
+ * modifica suprafata
+ */
+void mod_surface_c(Console*);
+/*
+ * modifica tipul
+ */
+void mod_tip_c(Console *c);
+/*
+ * modifica pretul
+ */
+void mod_price_c(Console *c);
 
 #endif //LAB2_4_REINCERCARE_CONS_H
