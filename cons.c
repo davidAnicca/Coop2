@@ -10,6 +10,7 @@
 void menu(){
     printf("\n\n1. adauga\n");
     printf("2. vezi lista\n");
+    printf("3. sterge\n");
 
     printf("0. iesire\n");
 }
@@ -78,7 +79,17 @@ void show_all(Console* console){
     }
 }
 
-
+void del_c(Console* console){
+    printf("\n\n<<<STERGERE>>>\n\n");
+    printf("adresa>>");
+    char adr[10];
+    scanf("%s", adr);
+    if(srv_del(console->srv, adr)){
+        printf("<<s-a sters cu succes\n");
+    }else{
+        printf("<<adresa nu a fost gasita\n");
+    }
+}
 
 Console* run(){
     Console* cons = (Console*)malloc(sizeof(Console));
@@ -102,6 +113,9 @@ Console* run(){
                 break;
             case 2:
                 show_all(cons);
+                break;
+            case 3:
+                del_c(cons);
                 break;
             default:
                 printf("<<comanda invalida\n");

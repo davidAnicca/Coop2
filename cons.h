@@ -38,5 +38,9 @@ void show_all(Console*);
  * adăugare item
  */
 void add_c(Console*);
+/*
+ * stergere item
+ */
+void del_c(Console *);
 
 #endif //LAB2_4_REINCERCARE_CONS_H
