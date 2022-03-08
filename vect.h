@@ -12,9 +12,22 @@ typedef struct {
     int size;
 }Vect;
 
+/*
+ * constructor
+ */
 Vect* create_vect();
+
+/*
+ * adăugare în vector
+ */
 void add_to_vect(Vect*,Item*);
+/*
+ * stergere din vector
+ */
 void remove_from_vect(Vect*, Item*);
+/*
+ * căutare în vector
+ */
 Item* find_in_vect(Vect*, Item*);
 
 

@@ -17,7 +17,9 @@ void del_it_srv_test();
 void mod_it_srv_test();
 
 
-
+/*
+ * ruleaza toate testele
+ */
 void run_all_tests();
 
 
