@@ -5,6 +5,7 @@
 #include "malloc.h"
 #include "mystrings.h"
 #include <stdio.h>
+#include <string.h>
 
 Service* create_service(){
     Repo* repo = create_repo();
@@ -65,5 +66,55 @@ int srv_mod_price(Service* srv, char address[], float price){
     set_surface(it, found->surface);
     set_tip(it, found->tip);
     return modify(srv->repo, it);
+}
+
+int cmpprice(Item* item1, Item* item2){
+    return item1->price > item2->price;
+}
+
+int cmptype(Item* item1, Item* item2){
+    return strcmp(item1->tip, item2->tip) < 0;
+}
+
+Vect* price_order(Service* service){
+    Vect* list = create_vect();
+    list->size = service->repo->vect->size;
+    for(int i = 0; i < service->repo->vect->size; i++){
+        list->items[i] = service->repo->vect->items[i];
+    }
+    int ordered = 0;
+    while(!ordered){
+        ordered = 1;
+        for(int i = 0; i < list->size-1; i++){
+            if(cmpprice(list->items[i], list->items[i+1])){
+                Item* item = list->items[i];
+                list->items[i] = list->items[i+1];
+                list->items[i+1] = item;
+                ordered = 0;
+            }
+        }
+    }
+    return list;
+}
+
+Vect* type_order(Service* service){
+    Vect* list = create_vect();
+    list->size = service->repo->vect->size;
+    for(int i = 0; i < service->repo->vect->size; i++){
+        list->items[i] = service->repo->vect->items[i];
+    }
+    int ordered = 0;
+    while(!ordered){
+        ordered = 1;
+        for(int i = 0; i < list->size-1; i++){
+            if(cmptype(list->items[i], list->items[i+1])){
+                Item* item = list->items[i];
+                list->items[i] = list->items[i+1];
+                list->items[i+1] = item;
+                ordered = 0;
+            }
+        }
+    }
+    return list;
 }
 

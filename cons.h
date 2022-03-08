@@ -58,5 +58,13 @@ void mod_tip_c(Console *c);
  * modifica pretul
  */
 void mod_price_c(Console *c);
+/*
+ * ordoneaza crescator dupa pret
+ */
+void price_ord_c(Console *c);
+/*
+ * ordonează descrescator dupa tip
+ */
+void type_ord_c(Console *c);
 
 #endif //LAB2_4_REINCERCARE_CONS_H

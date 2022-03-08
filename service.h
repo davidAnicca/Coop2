@@ -55,6 +55,31 @@ int srv_mod_surface(Service*, char[], int);
  * 0 altfel (nu exista)
  */
 int srv_mod_price(Service*, char[], float);
-
-
+/*
+ * ordonează crescător după pret
+ * returnează o listă
+ */
+Vect* price_order(Service*);
+/*
+ * ordonează descrescător după tip
+ * returnează o listă
+ */
+Vect* type_order(Service*);
+/*
+ * compară pretul a doi itemi.
+ * returneaza 1 daca item1.pret > item2.pret
+ * 0 altfel
+ */
+int cmpprice(Item*, Item*);
+/*
+ * compara tipul
+ * 1 daca item1.tip < item2.tip
+ * 0 altfel
+ */
+int cmptype(Item*, Item*);
+/*
+ * filtrare după tip
+ * returnează o lista
+ */
+Vect* type_filter(Service*);
 #endif //LAB2_4_REINCERCARE_SERVICE_H

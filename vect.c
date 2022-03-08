@@ -36,3 +36,7 @@ Item* find_in_vect(Vect* vect, Item* item){
     }
     return NULL;
 }
+
+void destroy_vector(Vect* vect){
+    free(vect);
+}

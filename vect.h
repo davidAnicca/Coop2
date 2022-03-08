@@ -30,6 +30,10 @@ void remove_from_vect(Vect*, Item*);
  * returnează instanța corectă sau NULL dacă nu există
  */
 Item* find_in_vect(Vect*, Item*);
+/*
+ * destructor
+ */
+void destroy_vector(Vect*);
 
 
 #endif //LAB2_4_REINCERCARE_VECT_H

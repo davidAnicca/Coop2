@@ -16,6 +16,7 @@ void add_it_srv_test();
 void del_it_srv_test();
 void mod_it_srv_test();
 
+void order_test();
 
 /*
  * ruleaza toate testele

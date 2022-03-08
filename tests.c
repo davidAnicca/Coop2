@@ -88,6 +88,32 @@ void mod_it_srv_test(){
     destroy_service(srv);
 }
 
+void order_test(){
+    Service* srv = create_service();
+    Item* item1 = create_item("apartament", 12, "adr", 3);
+    Item* item2 = create_item("casa", 12, "adr1", 2);
+    Item* item3 = create_item("teren", 12, "adr2", 1);
+    Vect* ordonat = price_order(srv);
+    assert(ordonat->size==0);
+    destroy_vector(ordonat);
+
+    add(srv->repo, item1);
+    add(srv->repo, item2);
+    add(srv->repo, item3);
+    printf("ok\n");
+    ordonat = price_order(srv);
+    assert(equal(ordonat->items[0], item3));
+    assert(equal(ordonat->items[1], item2));
+    assert(equal(ordonat->items[2], item1));
+    destroy_vector(ordonat);
+
+    ordonat = type_order(srv);
+    assert(equal(ordonat->items[0], item3));
+    assert(equal(ordonat->items[1], item2));
+    assert(equal(ordonat->items[2], item1));
+    destroy_vector(ordonat);
+}
+
 void run_all_tests(){
     create_item_test();
     destroy_item_test();
@@ -98,6 +124,8 @@ void run_all_tests(){
     add_it_srv_test();
     del_it_srv_test();
     mod_it_srv_test();
+
+    order_test();
 
     printf("tests done");
 }

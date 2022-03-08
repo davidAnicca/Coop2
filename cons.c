@@ -12,6 +12,8 @@ void menu(){
     printf("2. vezi lista\n");
     printf("3. sterge\n");
     printf("4. modificare\n");
+    printf("5. ordonare dupa pret  6. ordonare dupa tip\n");
+
 
     printf("0. iesire\n");
 }
@@ -160,6 +162,38 @@ void mod_tip_c(Console* console){
     if(rez == 0)printf("<<adresa nu a putut fi gasita\n");
 }
 
+void price_ord_c(Console *c){
+    Vect* ordered = price_order(c->srv);
+    if(ordered->size==0){
+        printf("<<<gol>>>");
+        return;
+    }
+    for(int i = 0; i < ordered->size; i++){
+        printf("<<tip: %s || suprafata: %d || adresa: %s || pret: %.2f\n",
+               ordered->items[i]->tip,
+               ordered->items[i]->surface,
+               ordered->items[i]->address,
+               ordered->items[i]->price);
+    }
+    destroy_vector(ordered);
+}
+
+void type_ord_c(Console *c){
+    Vect* ordered = type_order(c->srv);
+    if(ordered->size==0){
+        printf("<<<gol>>>");
+        return;
+    }
+    for(int i = 0; i < ordered->size; i++){
+        printf("<<tip: %s || suprafata: %d || adresa: %s || pret: %.2f\n",
+               ordered->items[i]->tip,
+               ordered->items[i]->surface,
+               ordered->items[i]->address,
+               ordered->items[i]->price);
+    }
+    destroy_vector(ordered);
+}
+
 Console* run(){
     Console* cons = (Console*)malloc(sizeof(Console));
     cons->srv = create_service();
@@ -189,6 +223,11 @@ Console* run(){
             case 4:
                 mod_c(cons);
                 break;
+            case 5:
+                price_ord_c(cons);
+                break;
+            case 6:
+                type_ord_c(cons);
             default:
                 printf("<<comanda invalida\n");
         }
