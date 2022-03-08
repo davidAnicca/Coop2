@@ -14,6 +14,10 @@ typedef struct {
 Console* run();
 void end_cons(Console*);
 
+void menu();
+
+int str_to_int(char[]);
+
 void show_all(Console*);
 void add_c(Console*);
 
