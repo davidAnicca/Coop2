@@ -32,7 +32,13 @@ void add_item_repo_test(){
     destroy_repo(repo);
 }
 void del_item_repo_test(){
-
+    Repo* repo = create_repo();
+    Item* it = create_item("tip", 2, "adresa", 2);
+    assert(remove_it(repo, it) == 0);
+    add(repo, it);
+    assert(remove_it(repo, it) == 1);
+    assert(repo->vect->size == 0);
+    destroy_repo(repo);
 }
 void mod_item_repo_test(){
 
@@ -45,9 +51,15 @@ void add_it_srv_test(){
     assert(srv_add(srv, "casa", 1, "adresa", 0) == 0); //nu poti adauga existent
     Item* item = create_item("casa", 1, "adresa", 0);
     assert(equal(srv->repo->vect->items[0], item));
+    destroy_service(srv);
 }
 void del_it_srv_test(){
-
+    Service* srv = create_service();
+    assert(srv_del(srv, "adr")==0); ///nu s-a sters
+    srv_add(srv, "casa", 1, "adr", 0);
+    assert(srv_del(srv, "adr")==1); ///s-a sters
+    assert(srv->repo->vect->size==0);
+    destroy_service(srv);
 }
 void mod_it_srv_test(){
 
@@ -59,6 +71,7 @@ void run_all_tests(){
     add_item_repo_test();
     del_item_repo_test();
     mod_item_repo_test();
+
     add_it_srv_test();
     del_it_srv_test();
     mod_it_srv_test();

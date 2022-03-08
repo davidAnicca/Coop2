@@ -34,3 +34,7 @@ int srv_add(Service* srv, char tip[], int surface, char address[], float price){
     }
 }
 
+int srv_del(Service* srv, char address[]){
+    return remove_it(srv->repo, create_item("casa", 1, address, 0));
+}
+

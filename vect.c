@@ -23,6 +23,7 @@ void remove_from_vect(Vect* vect, Item* item){
         if(equal(item, vect->items[i])){
             for(int j = i; j < vect->size-1; j++)
                 vect->items[i] = vect->items[i+1];
+            vect->size--;
             return;
         }
     }
