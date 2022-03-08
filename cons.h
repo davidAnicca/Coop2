@@ -66,5 +66,9 @@ void price_ord_c(Console *c);
  * ordonează descrescator dupa tip
  */
 void type_ord_c(Console *c);
+/*
+ * filtrare dupa tip
+ */
+void type_filter_c(Console *c);
 
 #endif //LAB2_4_REINCERCARE_CONS_H

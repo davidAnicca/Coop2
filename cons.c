@@ -13,6 +13,7 @@ void menu(){
     printf("3. sterge\n");
     printf("4. modificare\n");
     printf("5. ordonare dupa pret  6. ordonare dupa tip\n");
+    printf("7. categorii\n");
 
 
     printf("0. iesire\n");
@@ -193,6 +194,29 @@ void type_ord_c(Console *c){
     }
     destroy_vector(ordered);
 }
+void type_filter_c(Console *c){
+    printf("<<<CATEGORII>>>\n");
+    printf("1. Terenuri ||| 2. Case ||| 3. Apartamente\n>>>");
+    char buff[10];
+    scanf("%s", buff);
+    int opt = str_to_int(buff);
+    if(opt < 1 || opt > 3){
+        printf("<<<comanda invalida\n");
+        return;
+    }
+    Vect* rezultat;
+    if(opt == 1)rezultat = type_filter(c->srv, "teren");
+    if(opt == 2)rezultat = type_filter(c->srv, "casa");
+    if(opt == 3)rezultat = type_filter(c->srv, "apartament");
+    for(int i = 0; i < rezultat->size; i++){
+        printf("<<tip: %s || suprafata: %d || adresa: %s || pret: %.2f\n",
+               rezultat->items[i]->tip,
+               rezultat->items[i]->surface,
+               rezultat->items[i]->address,
+               rezultat->items[i]->price);
+    }
+
+}
 
 Console* run(){
     Console* cons = (Console*)malloc(sizeof(Console));
@@ -228,6 +252,10 @@ Console* run(){
                 break;
             case 6:
                 type_ord_c(cons);
+                break;
+            case 7:
+                type_filter_c(cons);
+                break;
             default:
                 printf("<<comanda invalida\n");
         }

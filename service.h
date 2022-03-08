@@ -81,5 +81,5 @@ int cmptype(Item*, Item*);
  * filtrare după tip
  * returnează o lista
  */
-Vect* type_filter(Service*);
+Vect* type_filter(Service*, char[]);
 #endif //LAB2_4_REINCERCARE_SERVICE_H

@@ -40,6 +40,8 @@ Item* find(Repo* repo, Item* item){
 }
 
 void destroy_repo(Repo* repo){
+    for(int i = 0; i < repo->vect->size; i++)
+        free(repo->vect->items[i]);
     destroy_vector(repo->vect);
     free(repo);
 }
