@@ -34,9 +34,12 @@ void add_item_repo_test(){
 void del_item_repo_test(){
     Repo* repo = create_repo();
     Item* it = create_item("tip", 2, "adresa", 2);
+    Item* it2 = create_item("tip", 2, "ad", 2);
     assert(remove_it(repo, it) == 0);
     add(repo, it);
+    add(repo, it2);
     assert(remove_it(repo, it) == 1);
+    assert(remove_it(repo, it2) == 1);
     assert(repo->vect->size == 0);
     destroy_repo(repo);
 }

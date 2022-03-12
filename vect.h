@@ -8,8 +8,9 @@
 #include "entitie.h"
 
 typedef struct {
-    Item* items[100];
+    Item** items;
     int size;
+    int capacity;
 }Vect;
 
 /*
@@ -34,6 +35,14 @@ Item* find_in_vect(Vect*, Item*);
  * destructor
  */
 void destroy_vector(Vect*);
+/*
+ * dublare capacitate
+ */
+void redim_up(Vect*);
+/*
+ * înjumătățire capacitate
+ */
+void redim_down(Vect*);
 
 
 #endif //LAB2_4_REINCERCARE_VECT_H
