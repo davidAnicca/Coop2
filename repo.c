@@ -24,6 +24,7 @@ int remove_it(Repo* repo, Item* item){
     if(found == NULL)
         return 0;
     remove_from_vect(repo->vect, item);
+    destroy_item(item);
     return 1;
 }
 
@@ -32,6 +33,7 @@ int modify(Repo* repo, Item* item){
     if(found == NULL)
         return 0;
     *found = *item;
+    destroy_item(item);
     return 1;
 }
 

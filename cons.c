@@ -215,7 +215,7 @@ void type_filter_c(Console *c){
                rezultat->items[i]->address,
                rezultat->items[i]->price);
     }
-
+    destroy_vector(rezultat);
 }
 
 Console* run(){
