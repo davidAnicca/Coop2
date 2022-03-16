@@ -37,5 +37,5 @@ int equal(Item* a, Item* b){
 
 
 void destroy_item(Item* it){
-    free(it);
+    ///free(it);
 }
