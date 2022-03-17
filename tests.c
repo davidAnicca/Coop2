@@ -32,7 +32,7 @@ void vector_test(){
     }
     assert(vect->size == 51);
     for(int i = 0; i <= 50; i++)
-        remove_from_vect(vect, vect->items[0]);
+        remove_from_vect(vect, vect->items[0], (void (*)(Elem)) destroy_item);
     assert(vect->size ==0);
     destroy_vector(vect, (void (*)(Elem)) destroy_item);
 }

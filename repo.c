@@ -31,7 +31,7 @@ int remove_it(Repo* repo, Item* item){
     Item* found = find_in_vect(repo, item);
     if(found == NULL)
         return 0;
-    remove_from_vect(repo->vect, found);
+    remove_from_vect(repo->vect, found, (void (*)(Elem)) destroy_item);
     return 1;
 }
 

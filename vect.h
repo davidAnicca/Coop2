@@ -30,7 +30,7 @@ void add_to_vect(Vect*,Elem);
 /*
  * stergere din vector
  */
-void remove_from_vect(Vect*, Elem);
+void remove_from_vect(Vect*, Elem, void (*destructor)(Elem));
 
 /*
  * destructor

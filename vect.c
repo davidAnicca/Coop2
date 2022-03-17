@@ -46,7 +46,7 @@ void add_to_vect(Vect* vect, Elem item){
     vect->size++;
 }
 
-void remove_from_vect(Vect* vect, Elem item){
+void remove_from_vect(Vect* vect, Elem item, void (*destructor)(Elem)){
     for(int i = 0; i < vect->size; i++){
         if(item == vect->items[i]){
             free(vect->items[i]);
