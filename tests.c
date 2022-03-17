@@ -63,6 +63,8 @@ void add_it_srv_test(){
     assert(srv_add(srv, "casa", 1, "adresa", 0) == 0); //nu poti adauga existent
     Item* item = create_item("casa", 1, "adresa", 0);
     assert(equal(srv->repo->vect->items[0], item));
+    destroy_item(item);
+    destroy_repo(srv->repo);
     destroy_service(srv);
 }
 void del_it_srv_test(){
@@ -98,22 +100,28 @@ void order_test(){
     Item* item3 = create_item("teren", 12, "adr2", 1);
     Vect* ordonat = price_order(srv);
     assert(ordonat->size==0);
-    destroy_vector(ordonat);
+
 
     add(srv->repo, item1);
     add(srv->repo, item2);
     add(srv->repo, item3);
-    ordonat = price_order(srv);
-    assert(equal(ordonat->items[0], item3));
-    assert(equal(ordonat->items[1], item2));
-    assert(equal(ordonat->items[2], item1));
-    destroy_vector(ordonat);
+    Vect* ordonat1 = price_order(srv);
+    assert(equal(ordonat1->items[0], item3));
+    assert(equal(ordonat1->items[1], item2));
+    assert(equal(ordonat1->items[2], item1));
 
-    ordonat = type_order(srv);
-    assert(equal(ordonat->items[0], item3));
-    assert(equal(ordonat->items[1], item2));
-    assert(equal(ordonat->items[2], item1));
-    destroy_vector(ordonat);
+
+    Vect* ordonat2 = type_order(srv);
+    assert(equal(ordonat2->items[0], item3));
+    assert(equal(ordonat2->items[1], item2));
+    assert(equal(ordonat2->items[2], item1));
+    destroy_service(srv);
+    free(ordonat1->items);
+    free(ordonat2->items);
+    free(ordonat->items);
+    free(ordonat1);
+    free(ordonat2);
+    free(ordonat);
 }
 
 void filter_test(){
@@ -123,31 +131,37 @@ void filter_test(){
     Item* item3 = create_item("teren", 12, "adr2", 1);
     Vect* vect = type_filter(srv, "casa");
     assert(vect->size==0);
-    destroy_vector(vect);
+
 
     add(srv->repo, item1);
     add(srv->repo, item2);
     add(srv->repo, item3);
-    vect = type_filter(srv, "casa");
-    assert(vect->size==1);
-    assert(str_equal(vect->items[0]->tip, "casa"));
-    destroy_vector(vect);
+    Vect* vect1 = type_filter(srv, "casa");
+    assert(vect1->size==1);
+    assert(str_equal(vect1->items[0]->tip, "casa"));
 
-    vect = type_filter(srv, "apartament");
-    assert(vect->size==1);
-    assert(str_equal(vect->items[0]->tip, "apartament"));
-    destroy_vector(vect);
+    Vect* vect2 = type_filter(srv, "apartament");
+    assert(vect2->size==1);
+    assert(str_equal(vect2->items[0]->tip, "apartament"));
 
-    vect = type_filter(srv, "teren");
-    assert(vect->size==1);
-    assert(str_equal(vect->items[0]->tip, "teren"));
-    destroy_vector(vect);
+    Vect* vect3 = type_filter(srv, "teren");
+    assert(vect3->size==1);
+    assert(str_equal(vect3->items[0]->tip, "teren"));
 
-    vect = type_filter(srv, "a");
-    assert(vect->size==0);
-    destroy_vector(vect);
+    Vect* vect4 = type_filter(srv, "a");
+    assert(vect4->size==0);
 
     destroy_service(srv);
+    free(vect1->items);
+    free(vect2->items);
+    free(vect->items);
+    free(vect3->items);
+    free(vect4->items);
+    free(vect1);
+    free(vect2);
+    free(vect);
+    free(vect3);
+    free(vect4);
 }
 
 void run_all_tests(){

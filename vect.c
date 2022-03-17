@@ -17,7 +17,7 @@ Vect* create_vect(){
 }
 
 void redim_up(Vect* vect){
-    Item** items = (Item**) malloc((2*vect->capacity)*sizeof(Item*));
+    Item** items = (Item**) malloc((2*(vect->capacity))*sizeof(Item*));
     for(int i = 0; i < vect->size; i++)
         items[i] = vect->items[i];
     free(vect->items);
@@ -47,8 +47,9 @@ void remove_from_vect(Vect* vect, Item* item){
             for(int j = i; j < vect->size-1; j++)
                 vect->items[i] = vect->items[i+1];
             vect->size--;
-            if(vect->size < vect->capacity)
+            if(vect->size < (vect->capacity)/2)
                 redim_down(vect);
+            destroy_item(item);
             return;
         }
     }
@@ -63,6 +64,8 @@ Item* find_in_vect(Vect* vect, Item* item){
 }
 
 void destroy_vector(Vect* vect){
+    for(int i = 0; i < vect->size; i++)
+        destroy_item(vect->items[i]);
     free(vect->items);
     free(vect);
 }

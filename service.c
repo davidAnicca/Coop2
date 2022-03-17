@@ -15,8 +15,7 @@ Service* create_service(){
 }
 
 void destroy_service(Service* service){
-    free(service->repo->vect);
-    free(service->repo);
+    destroy_repo(service->repo);
     free(service);
 }
 
@@ -29,22 +28,32 @@ int srv_add(Service* srv, char tip[], int surface, char address[], float price){
         return -1;
     Item* item = create_item(tip, surface, address, price);
     if(add(srv->repo, item)){
+        destroy_item(item);
         return 1;
     }else{
-        return 0;
         destroy_item(item);
+        return 0;
     }
 }
 
 int srv_del(Service* srv, char address[]){
-    return remove_it(srv->repo, create_item("casa", 1, address, 0));
+    Item* it = create_item("casa", 1, address, 0);
+    int rez = remove_it(srv->repo, it);
+    if(rez == 0){
+        destroy_item(it);
+        return 0;
+    }
+    return 1;
 }
 
 int srv_mod_tip(Service* srv, char address[], char tip[]){
     if(!type_val(tip))return -1;
     Item *it = create_item(tip, 0, address, 0);
     Item *found = find(srv->repo, it);
-    if(found == NULL)return 0;
+    if(found == NULL){
+        destroy_item(it) ;
+        return 0;
+    }
     set_price(it, found->price);
     set_surface(it, found->price);
     return modify(srv->repo, it);
@@ -53,7 +62,10 @@ int srv_mod_tip(Service* srv, char address[], char tip[]){
 int srv_mod_surface(Service* srv, char address[], int surface){
     Item *it = create_item("casa", surface, address, 0);
     Item *found = find(srv->repo, it);
-    if(found == NULL)return 0;
+    if(found == NULL){
+        destroy_item(it) ;
+        return 0;
+    }
     set_price(it, found->price);
     set_tip(it, found->tip);
     return modify(srv->repo, it);
@@ -62,7 +74,10 @@ int srv_mod_surface(Service* srv, char address[], int surface){
 int srv_mod_price(Service* srv, char address[], float price){
     Item *it = create_item("casa", 0, address, price);
     Item *found = find(srv->repo, it);
-    if(found == NULL)return 0;
+    if(found == NULL){
+        destroy_item(it) ;
+        return 0;
+    }
     set_surface(it, found->surface);
     set_tip(it, found->tip);
     return modify(srv->repo, it);

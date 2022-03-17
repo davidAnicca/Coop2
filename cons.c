@@ -192,7 +192,8 @@ void type_ord_c(Console *c){
                ordered->items[i]->address,
                ordered->items[i]->price);
     }
-    destroy_vector(ordered);
+    free(ordered->items);
+    free(ordered);
 }
 void type_filter_c(Console *c){
     printf("<<<CATEGORII>>>\n");
@@ -215,7 +216,8 @@ void type_filter_c(Console *c){
                rezultat->items[i]->address,
                rezultat->items[i]->price);
     }
-    destroy_vector(rezultat);
+    free(rezultat->items);
+    free(rezultat);
 }
 
 Console* run(){
