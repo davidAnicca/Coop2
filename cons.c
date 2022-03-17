@@ -76,10 +76,10 @@ void show_all(Console* console){
     }
     for(int i = 0; i < console->srv->repo->vect->size; i++){
         printf("<<tip: %s || suprafata: %d || adresa: %s || pret: %.2f\n",
-               console->srv->repo->vect->items[i]->tip,
-               console->srv->repo->vect->items[i]->surface,
-               console->srv->repo->vect->items[i]->address,
-               console->srv->repo->vect->items[i]->price);
+               ((Item*)console->srv->repo->vect->items[i])->tip,
+               ((Item*)console->srv->repo->vect->items[i])->surface,
+               ((Item*)console->srv->repo->vect->items[i])->address,
+               ((Item*)console->srv->repo->vect->items[i])->price);
     }
 }
 
@@ -171,12 +171,12 @@ void price_ord_c(Console *c){
     }
     for(int i = 0; i < ordered->size; i++){
         printf("<<tip: %s || suprafata: %d || adresa: %s || pret: %.2f\n",
-               ordered->items[i]->tip,
-               ordered->items[i]->surface,
-               ordered->items[i]->address,
-               ordered->items[i]->price);
+               ((Item*)ordered->items[i])->tip,
+               ((Item*)ordered->items[i])->surface,
+               ((Item*)ordered->items[i])->address,
+               ((Item*)ordered->items[i])->price);
     }
-    destroy_vector(ordered);
+    destroy_vector(ordered, (void (*)(Elem)) destroy_item);
 }
 
 void type_ord_c(Console *c){
@@ -187,10 +187,10 @@ void type_ord_c(Console *c){
     }
     for(int i = 0; i < ordered->size; i++){
         printf("<<tip: %s || suprafata: %d || adresa: %s || pret: %.2f\n",
-               ordered->items[i]->tip,
-               ordered->items[i]->surface,
-               ordered->items[i]->address,
-               ordered->items[i]->price);
+               ((Item*)ordered->items[i])->tip,
+               ((Item*)ordered->items[i])->surface,
+               ((Item*)ordered->items[i])->address,
+               ((Item*)ordered->items[i])->price);
     }
     free(ordered->items);
     free(ordered);
@@ -211,10 +211,10 @@ void type_filter_c(Console *c){
     if(opt == 3)rezultat = type_filter(c->srv, "apartament");
     for(int i = 0; i < rezultat->size; i++){
         printf("<<tip: %s || suprafata: %d || adresa: %s || pret: %.2f\n",
-               rezultat->items[i]->tip,
-               rezultat->items[i]->surface,
-               rezultat->items[i]->address,
-               rezultat->items[i]->price);
+               ((Item*)rezultat->items[i])->tip,
+               ((Item*)rezultat->items[i])->surface,
+               ((Item*)rezultat->items[i])->address,
+               ((Item*)rezultat->items[i])->price);
     }
     free(rezultat->items);
     free(rezultat);

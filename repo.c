@@ -11,8 +11,16 @@ Repo* create_repo(){
     return repo;
 }
 
+Item* find_in_vect(Repo* repo, Item* item){
+    for(int i = 0; i < repo->vect->size; i++){
+        if(equal(item, get(repo->vect, i)))
+            return get(repo->vect, i);
+    }
+    return NULL;
+}
+
 int add(Repo* repo, Item* item){
-    Item* found = find_in_vect(repo->vect, item);
+    Item* found = find_in_vect(repo, item);
     if(found != NULL)
         return 0;
     add_to_vect(repo->vect, item);
@@ -20,15 +28,15 @@ int add(Repo* repo, Item* item){
 }
 
 int remove_it(Repo* repo, Item* item){
-    Item* found = find_in_vect(repo->vect, item);
+    Item* found = find_in_vect(repo, item);
     if(found == NULL)
         return 0;
-    remove_from_vect(repo->vect, item);
+    remove_from_vect(repo->vect, found);
     return 1;
 }
 
 int modify(Repo* repo, Item* item){
-    Item* found = find_in_vect(repo->vect, item);
+    Item* found = find_in_vect(repo, item);
     if(found == NULL)
         return 0;
     *found = *item;
@@ -37,10 +45,10 @@ int modify(Repo* repo, Item* item){
 }
 
 Item* find(Repo* repo, Item* item){
-    return find_in_vect(repo->vect, item);
+    return find_in_vect(repo, item);
 }
 
 void destroy_repo(Repo* repo){
-    destroy_vector(repo->vect);
+    destroy_vector(repo->vect, (void (*)(Elem)) destroy_item);
     free(repo);
 }

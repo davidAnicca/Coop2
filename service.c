@@ -136,7 +136,7 @@ Vect* type_order(Service* service){
 Vect* type_filter(Service* srv, char tip[]){
     Vect* list = create_vect();
     for(int i = 0; i < srv->repo->vect->size; i++){
-        if(str_equal(srv->repo->vect->items[i]->tip, tip)){
+        if(str_equal(((Item*)srv->repo->vect->items[i])->tip, tip)){
             add_to_vect(list, srv->repo->vect->items[i]);
         }
     }

@@ -7,12 +7,17 @@
 
 #include "entitie.h"
 
+typedef void* Elem;
+
 typedef struct {
-    Item** items;
+    Elem* items;
     int size;
     int capacity;
 }Vect;
-
+/*
+ * dă de la index
+ */
+Elem get(Vect*, int);
 /*
  * constructor
  */
@@ -21,20 +26,16 @@ Vect* create_vect();
 /*
  * adăugare în vector
  */
-void add_to_vect(Vect*,Item*);
+void add_to_vect(Vect*,Elem);
 /*
  * stergere din vector
  */
-void remove_from_vect(Vect*, Item*);
-/*
- * căutare în vector
- * returnează instanța corectă sau NULL dacă nu există
- */
-Item* find_in_vect(Vect*, Item*);
+void remove_from_vect(Vect*, Elem);
+
 /*
  * destructor
  */
-void destroy_vector(Vect*);
+void destroy_vector(Vect*, void (*destructor)(Elem));
 /*
  * dublare capacitate
  */

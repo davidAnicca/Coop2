@@ -6,18 +6,22 @@
 #include "malloc.h"
 #include <stdio.h>
 
+Elem get(Vect* vect, int i){
+    return vect->items[i];
+}
+
 Vect* create_vect(){
-    Vect* vect;
-    Item** items = (Item**) malloc(10*sizeof(Item*));
-    vect = (Vect*) malloc(sizeof(Vect));
+
+    Elem* items = (Elem*) malloc(40*sizeof(Elem));
+    Vect* vect = (Vect*) malloc(sizeof(Vect));
     vect->items = items;
     vect->size=0;
-    vect->capacity = 10;
+    vect->capacity = 40;
     return vect;
 }
 
 void redim_up(Vect* vect){
-    Item** items = (Item**) malloc((2*(vect->capacity))*sizeof(Item*));
+    Elem* items = (Elem*) malloc((2*(vect->capacity))*sizeof(Elem));
     for(int i = 0; i < vect->size; i++)
         items[i] = vect->items[i];
     free(vect->items);
@@ -26,7 +30,8 @@ void redim_up(Vect* vect){
 }
 
 void redim_down(Vect* vect){
-    Item** items = (Item**) malloc(((vect->capacity)/2)*sizeof(Item*));
+    if(vect->capacity < 3 )return;
+    Elem* items = (Elem*) malloc(((vect->capacity)/2)*sizeof(Elem));
     for(int i = 0; i < vect->size; i++)
         items[i] = vect->items[i];
     free(vect->items);
@@ -34,19 +39,19 @@ void redim_down(Vect* vect){
     vect->items = items;
 }
 
-void add_to_vect(Vect* vect, Item* item){
+void add_to_vect(Vect* vect, Elem item){
     if(vect->size + 1 > vect->capacity)
         redim_up(vect);
     vect->items[vect->size] = item;
     vect->size++;
 }
 
-void remove_from_vect(Vect* vect, Item* item){
+void remove_from_vect(Vect* vect, Elem item){
     for(int i = 0; i < vect->size; i++){
-        if(equal(item, vect->items[i])){
-            destroy_item(vect->items[i]);
-            for(int j = i; j < vect->size-1; j++)
-                vect->items[i] = vect->items[i+1];
+        if(item == vect->items[i]){
+            free(vect->items[i]);
+            for(int j = i; j < (vect->size)-1; j++)
+                vect->items[j] = vect->items[j+1];
             vect->size--;
             if(vect->size < (vect->capacity)/2)
                 redim_down(vect);
@@ -55,17 +60,11 @@ void remove_from_vect(Vect* vect, Item* item){
     }
 }
 
-Item* find_in_vect(Vect* vect, Item* item){
-    for(int i = 0; i < vect->size; i++){
-        if(equal(item, vect->items[i]))
-            return vect->items[i];
-    }
-    return NULL;
-}
 
-void destroy_vector(Vect* vect){
+
+void destroy_vector(Vect* vect, void (*destructor)(Elem)){
     for(int i = 0; i < vect->size; i++)
-        destroy_item(vect->items[i]);
+        destructor(vect->items[i]);
     free(vect->items);
     free(vect);
 }

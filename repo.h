@@ -21,6 +21,11 @@ int add(Repo*, Item*);
  */
 int remove_it(Repo*, Item*);
 /*
+ * căutare în vector
+ * returnează instanța corectă sau NULL dacă nu există
+ */
+Item* find_in_vect(Repo*, Item*);
+/*
  * modifica itemul trimis.
  * returneaza 1 daca s-a modificat
  *          0 dacă nu există
