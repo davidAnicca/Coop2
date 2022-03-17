@@ -61,10 +61,11 @@ void add_it_srv_test(){
     assert(srv_add(srv, "a", 1, "a", 0) == -1); ///tip invalid
     assert(srv_add(srv, "casa", 1, "adresa", 0) == 1); ///adaugare ok
     assert(srv_add(srv, "casa", 1, "adresa", 0) == 0); //nu poti adauga existent
-    Item* item = create_item("casa", 1, "adresa", 0);
+
+    Item* item = create_item("casa", 2, "adresa", 0);
     assert(equal(srv->repo->vect->items[0], item));
     destroy_item(item);
-    destroy_repo(srv->repo);
+
     destroy_service(srv);
 }
 void del_it_srv_test(){
