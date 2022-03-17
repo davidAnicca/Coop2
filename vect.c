@@ -49,7 +49,7 @@ void add_to_vect(Vect* vect, Elem item){
 void remove_from_vect(Vect* vect, Elem item, void (*destructor)(Elem)){
     for(int i = 0; i < vect->size; i++){
         if(item == vect->items[i]){
-            free(vect->items[i]);
+            destructor(vect->items[i]);
             for(int j = i; j < (vect->size)-1; j++)
                 vect->items[j] = vect->items[j+1];
             vect->size--;
