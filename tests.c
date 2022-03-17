@@ -71,8 +71,10 @@ void add_it_srv_test(){
 void del_it_srv_test(){
     Service* srv = create_service();
     assert(srv_del(srv, "adr")==0); ///nu s-a sters
+
     srv_add(srv, "casa", 1, "adr", 0);
     assert(srv_del(srv, "adr")==1); ///s-a sters
+
     assert(srv->repo->vect->size==0);
     destroy_service(srv);
 }

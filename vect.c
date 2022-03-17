@@ -44,12 +44,12 @@ void add_to_vect(Vect* vect, Item* item){
 void remove_from_vect(Vect* vect, Item* item){
     for(int i = 0; i < vect->size; i++){
         if(equal(item, vect->items[i])){
+            destroy_item(vect->items[i]);
             for(int j = i; j < vect->size-1; j++)
                 vect->items[i] = vect->items[i+1];
             vect->size--;
             if(vect->size < (vect->capacity)/2)
                 redim_down(vect);
-            destroy_item(item);
             return;
         }
     }

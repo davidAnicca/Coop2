@@ -28,7 +28,6 @@ int srv_add(Service* srv, char tip[], int surface, char address[], float price){
         return -1;
     Item* item = create_item(tip, surface, address, price);
     if(add(srv->repo, item)){
-        destroy_item(item);
         return 1;
     }else{
         destroy_item(item);
@@ -43,6 +42,7 @@ int srv_del(Service* srv, char address[]){
         destroy_item(it);
         return 0;
     }
+    destroy_item(it);
     return 1;
 }
 
